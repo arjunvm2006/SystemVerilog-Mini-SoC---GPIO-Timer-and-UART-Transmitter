@@ -124,3 +124,14 @@ This Version 1 project is simulation- and synthesis-verified. Planned Version 2 
 - Add an interrupt controller
 - Target an FPGA board and perform timing-constraint analysis
 - Explore ASIC physical design using OpenLane/OpenROAD
+
+
+## GPIO verification waveform
+
+![GPIO waveform](docs/GPIO%20Waveform.png)
+
+
+
+## Mini-SoC integration waveform
+
+![Mini-SoC integration waveform](docs/SoC%20Waveform.png)
