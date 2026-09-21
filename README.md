@@ -10,6 +10,9 @@ I wanted a hands-on project that connects the digital electronics concepts I hav
 
 Instead of only writing individual Verilog examples, I built and verified reusable hardware blocks, integrated them into a mini-SoC, and generated a synthesis report. This resembles the early RTL-to-synthesis stages of real FPGA and ASIC development.
 
+## Architechture
+![Mini-SoC block diagram](docs/Mini%20SoC%20block%20diagram.svg)
+
 ## GPIO peripheral
 
 The GPIO peripheral provides:
