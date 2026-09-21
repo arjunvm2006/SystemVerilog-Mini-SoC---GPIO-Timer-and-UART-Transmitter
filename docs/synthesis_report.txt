@@ -1,0 +1,1387 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Running command `read_verilog -sv rtl/gpio.sv rtl/timer.sv rtl/uart_tx.sv rtl/soc_top.sv; hierarchy -check -top soc_top; synth -top soc_top; stat' --
+
+1. Executing Verilog-2005 frontend: rtl/gpio.sv
+Parsing SystemVerilog input from `rtl/gpio.sv' to AST representation.
+Generating RTLIL representation for module `\gpio'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/timer.sv
+Parsing SystemVerilog input from `rtl/timer.sv' to AST representation.
+Generating RTLIL representation for module `\timer'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/uart_tx.sv
+Parsing SystemVerilog input from `rtl/uart_tx.sv' to AST representation.
+Generating RTLIL representation for module `\uart_tx'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/soc_top.sv
+Parsing SystemVerilog input from `rtl/soc_top.sv' to AST representation.
+Generating RTLIL representation for module `\soc_top'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+
+5.1. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     \uart_tx
+Used module:     \timer
+Used module:     \gpio
+Parameter \CLKS_PER_BIT = 4
+
+5.2. Executing AST frontend in derive mode using pre-parsed AST for module `\uart_tx'.
+Parameter \CLKS_PER_BIT = 4
+Generating RTLIL representation for module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Parameter \WIDTH = 32
+
+5.3. Executing AST frontend in derive mode using pre-parsed AST for module `\timer'.
+Parameter \WIDTH = 32
+Generating RTLIL representation for module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Parameter \WIDTH = 8
+
+5.4. Executing AST frontend in derive mode using pre-parsed AST for module `\gpio'.
+Parameter \WIDTH = 8
+Generating RTLIL representation for module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+
+5.5. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+
+5.6. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+Removing unused module `\uart_tx'.
+Removing unused module `\timer'.
+Removing unused module `\gpio'.
+Removed 3 unused modules.
+
+6. Executing SYNTH pass.
+
+6.1. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1.1. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+
+6.1.2. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+Removed 0 unused modules.
+
+6.2. Executing PROC pass (convert processes to netlists).
+
+6.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+6.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/gpio.sv:0$38 in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$rtl/gpio.sv:16$36 in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$rtl/timer.sv:0$35 in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Marked 2 switch rules as full_case in process $proc$rtl/timer.sv:15$32 in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Removed 1 dead cases from process $proc$rtl/uart_tx.sv:28$20 in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Marked 6 switch rules as full_case in process $proc$rtl/uart_tx.sv:28$20 in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Removed a total of 1 dead cases.
+
+6.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 2 assignments to connections.
+
+6.2.4. Executing PROC_INIT pass (extract init attributes).
+
+6.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:16$36'.
+Found async reset \rst_n in `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:15$32'.
+Found async reset \rst_n in `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+
+6.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~11 debug messages>
+
+6.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:0$38'.
+     1/1: $1\read_data[7:0]
+Creating decoders for process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:16$36'.
+     1/1: $0\gpio_out[7:0]
+Creating decoders for process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:0$35'.
+     1/1: $1\read_data[31:0]
+Creating decoders for process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:15$32'.
+     1/1: $0\count[31:0]
+Creating decoders for process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+     1/6: $0\baud_count[1:0]
+     2/6: $0\data_reg[7:0]
+     3/6: $0\bit_index[2:0]
+     4/6: $0\state[1:0]
+     5/6: $0\busy[0:0]
+     6/6: $0\tx[0:0]
+
+6.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.\read_data' from process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:0$38'.
+No latch inferred for signal `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.\read_data' from process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:0$35'.
+
+6.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.\gpio_out' using process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:16$36'.
+  created $adff cell `$procdff$133' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.\count' using process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:15$32'.
+  created $adff cell `$procdff$134' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\tx' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$135' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\busy' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$136' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\state' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$137' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\baud_count' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$138' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\bit_index' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$139' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.\data_reg' using process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+  created $adff cell `$procdff$140' with positive edge clock and negative level reset.
+
+6.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+6.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:0$38'.
+Removing empty process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:0$38'.
+Found and cleaned up 1 empty switch in `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:16$36'.
+Removing empty process `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000.$proc$rtl/gpio.sv:16$36'.
+Found and cleaned up 1 empty switch in `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:0$35'.
+Removing empty process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:0$35'.
+Found and cleaned up 2 empty switches in `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:15$32'.
+Removing empty process `$paramod\timer\WIDTH=s32'00000000000000000000000000100000.$proc$rtl/timer.sv:15$32'.
+Found and cleaned up 6 empty switches in `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+Removing empty process `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$proc$rtl/uart_tx.sv:28$20'.
+Cleaned up 11 empty switches.
+
+6.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module soc_top.
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~6 debug messages>
+
+6.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module soc_top.
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+
+6.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \soc_top..
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Removed 3 unused cells and 41 unused wires.
+<suppressed ~6 debug messages>
+
+6.5. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000...
+Checking module $paramod\timer\WIDTH=s32'00000000000000000000000000100000...
+Checking module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100...
+Checking module soc_top...
+Found and reported 0 problems.
+
+6.6. Executing OPT pass (performing simple optimizations).
+
+6.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~57 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 19 cells.
+
+6.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+6.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 2 cells.
+
+6.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 0 unused cells and 21 unused wires.
+<suppressed ~1 debug messages>
+
+6.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+6.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+    New ctrl vector for $pmux cell $procmux$55: { $procmux$105_CMP $auto$opt_reduce.cc:134:opt_pmux$142 }
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 1 changes.
+
+6.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.6.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.6.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+6.6.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.6.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.6.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.6.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.6.23. Finished OPT passes. (There is nothing left to do.)
+
+6.7. Executing FSM pass (extract and optimize FSM).
+
+6.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.state.
+
+6.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\state' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+  found $adff cell for state register: $procdff$137
+  root of input selection tree: $0\state[1:0]
+  found reset state: 2'00 (from async reset)
+  found ctrl input: $procmux$110_CMP
+  found ctrl input: $procmux$125_CMP
+  found ctrl input: $procmux$102_CMP
+  found ctrl input: $procmux$105_CMP
+  found ctrl input: $eq$rtl/uart_tx.sv:53$22_Y
+  found ctrl input: $eq$rtl/uart_tx.sv:67$25_Y
+  found state code: 2'11
+  found state code: 2'10
+  found ctrl input: \start
+  found state code: 2'01
+  found ctrl output: $procmux$102_CMP
+  found ctrl output: $procmux$105_CMP
+  found ctrl output: $procmux$110_CMP
+  found ctrl output: $procmux$125_CMP
+  ctrl inputs: { $eq$rtl/uart_tx.sv:67$25_Y $eq$rtl/uart_tx.sv:53$22_Y \start }
+  ctrl outputs: { $procmux$125_CMP $procmux$110_CMP $procmux$105_CMP $procmux$102_CMP $0\state[1:0] }
+  transition:       2'00 3'--0 ->       2'00 6'001000
+  transition:       2'00 3'--1 ->       2'01 6'001001
+  transition:       2'10 3'-0- ->       2'10 6'100010
+  transition:       2'10 3'01- ->       2'10 6'100010
+  transition:       2'10 3'11- ->       2'11 6'100011
+  transition:       2'01 3'-0- ->       2'01 6'000101
+  transition:       2'01 3'-1- ->       2'10 6'000110
+  transition:       2'11 3'-0- ->       2'11 6'010011
+  transition:       2'11 3'-1- ->       2'00 6'010000
+
+6.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$143' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+
+6.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 11 unused cells and 11 unused wires.
+<suppressed ~12 debug messages>
+
+6.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$143' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+  Removing unused output signal $0\state[1:0] [0].
+  Removing unused output signal $0\state[1:0] [1].
+
+6.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\state$143' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> ---1
+  10 -> --1-
+  01 -> -1--
+  11 -> 1---
+
+6.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\state$143' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100':
+-------------------------------------
+
+  Information on FSM $fsm$\state$143 (\state):
+
+  Number of input signals:    3
+  Number of output signals:   4
+  Number of state bits:       4
+
+  Input signals:
+    0: \start
+    1: $eq$rtl/uart_tx.sv:53$22_Y
+    2: $eq$rtl/uart_tx.sv:67$25_Y
+
+  Output signals:
+    0: $procmux$102_CMP
+    1: $procmux$105_CMP
+    2: $procmux$110_CMP
+    3: $procmux$125_CMP
+
+  State encoding:
+    0:     4'---1  <RESET STATE>
+    1:     4'--1-
+    2:     4'-1--
+    3:     4'1---
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 3'--0   ->     0 4'0010
+      1:     0 3'--1   ->     2 4'0010
+      2:     1 3'-0-   ->     1 4'1000
+      3:     1 3'01-   ->     1 4'1000
+      4:     1 3'11-   ->     3 4'1000
+      5:     2 3'-1-   ->     1 4'0001
+      6:     2 3'-0-   ->     2 4'0001
+      7:     3 3'-1-   ->     0 4'0100
+      8:     3 3'-0-   ->     3 4'0100
+
+-------------------------------------
+
+6.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\state$143' from module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+
+6.8. Executing OPT pass (performing simple optimizations).
+
+6.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~7 debug messages>
+Optimizing module soc_top.
+
+6.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 2 cells.
+
+6.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+6.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$133 ($adff) from module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000 (D = \write_data, Q = \gpio_out).
+Adding EN signal on $procdff$134 ($adff) from module $paramod\timer\WIDTH=s32'00000000000000000000000000100000 (D = $0\count[31:0], Q = \count).
+Adding EN signal on $procdff$140 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 (D = \data_in, Q = \data_reg).
+Adding EN signal on $procdff$139 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 (D = $0\bit_index[2:0], Q = \bit_index).
+Adding EN signal on $procdff$136 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 (D = $0\busy[0:0], Q = \busy).
+Adding EN signal on $procdff$135 ($adff) from module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 (D = $0\tx[0:0], Q = \tx).
+
+6.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 3 unused cells and 15 unused wires.
+<suppressed ~5 debug messages>
+
+6.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~3 debug messages>
+Optimizing module soc_top.
+
+6.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+6.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 3 cells.
+
+6.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 0 unused cells and 3 unused wires.
+<suppressed ~1 debug messages>
+
+6.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+6.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.8.23. Finished OPT passes. (There is nothing left to do.)
+
+6.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.$auto$fsm_map.cc:77:implement_pattern_cache$167 ($eq).
+
+6.10. Executing PEEPOPT pass (run peephole optimizers).
+
+6.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000:
+  creating $macc model for $add$rtl/timer.sv:21$34 ($add).
+  creating $alu model for $macc $add$rtl/timer.sv:21$34.
+  creating $alu cell for $add$rtl/timer.sv:21$34: $auto$alumacc.cc:485:replace_alu$229
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100:
+  creating $macc model for $add$rtl/uart_tx.sv:59$23 ($add).
+  creating $macc model for $add$rtl/uart_tx.sv:71$26 ($add).
+  creating $alu model for $macc $add$rtl/uart_tx.sv:71$26.
+  creating $alu model for $macc $add$rtl/uart_tx.sv:59$23.
+  creating $alu cell for $add$rtl/uart_tx.sv:59$23: $auto$alumacc.cc:485:replace_alu$232
+  creating $alu cell for $add$rtl/uart_tx.sv:71$26: $auto$alumacc.cc:485:replace_alu$235
+  created 2 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module soc_top:
+  created 0 $alu and 0 $macc cells.
+
+6.13. Executing SHARE pass (SAT-based resource sharing).
+
+6.14. Executing OPT pass (performing simple optimizations).
+
+6.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+6.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.14.9. Finished OPT passes. (There is nothing left to do.)
+
+6.15. Executing MEMORY pass.
+
+6.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+6.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+6.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+6.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+6.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+6.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+6.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+6.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.17. Executing OPT pass (performing simple optimizations).
+
+6.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~14 debug messages>
+Optimizing module soc_top.
+
+6.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 1 cells.
+
+6.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~2 debug messages>
+
+6.17.5. Finished fast OPT passes.
+
+6.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+6.19. Executing OPT pass (performing simple optimizations).
+
+6.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+6.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+    New ctrl vector for $pmux cell $procmux$80: \state [1]
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 1 changes.
+
+6.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.19.6. Executing OPT_SHARE pass.
+
+6.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \soc_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+6.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+  Optimizing cells in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+  Optimizing cells in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+  Optimizing cells in module \soc_top.
+Performed a total of 0 changes.
+
+6.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.19.14. Executing OPT_SHARE pass.
+
+6.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+
+6.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+Optimizing module soc_top.
+
+6.19.18. Finished OPT passes. (There is nothing left to do.)
+
+6.20. Executing TECHMAP pass (map to technology primitives).
+
+6.20.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+6.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $eq.
+Using template $paramod$3ef7d3dd227da7627a99c5e5a6a4deb817573e39\_90_alu for cells of type $alu.
+Using template $paramod$constmap:ee5af906ae0d3d414c6a0471604c553ef70c8e09$paramod$92adee9538f2381d8e5006822c900eb986d754e8\_90_shift_shiftx for cells of type $shiftx.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using template $paramod$175e67c02b86e96b1288b9dc100122520d7240d8\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $adff.
+Using template $paramod$d629d85c8826a74239b9178d1930215a43b0ceb0\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Using template $paramod$6a42b6fefed750f8a1c58eab59479d960557103c\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~864 debug messages>
+
+6.21. Executing OPT pass (performing simple optimizations).
+
+6.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+<suppressed ~183 debug messages>
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~61 debug messages>
+Optimizing module soc_top.
+
+6.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+<suppressed ~36 debug messages>
+Finding identical cells in module `\soc_top'.
+Removed a total of 13 cells.
+
+6.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 55 unused cells and 231 unused wires.
+<suppressed ~57 debug messages>
+
+6.21.5. Finished fast OPT passes.
+
+6.22. Executing ABC pass (technology mapping using ABC).
+
+6.22.1. Extracting gate netlist of module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000' to `<abc-temp-dir>/input.blif'..
+Extracted 8 gates and 18 wires to a netlist network with 9 inputs and 8 outputs.
+
+6.22.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        8
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        8
+Removing temp directory.
+
+6.22.2. Extracting gate netlist of module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000' to `<abc-temp-dir>/input.blif'..
+Extracted 149 gates and 185 wires to a netlist network with 35 inputs and 65 outputs.
+
+6.22.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        1
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:               AND cells:       33
+ABC RESULTS:              XNOR cells:        2
+ABC RESULTS:              NAND cells:       21
+ABC RESULTS:                OR cells:       21
+ABC RESULTS:             ORNOT cells:       10
+ABC RESULTS:               XOR cells:       29
+ABC RESULTS:            ANDNOT cells:       36
+ABC RESULTS:        internal signals:       85
+ABC RESULTS:           input signals:       35
+ABC RESULTS:          output signals:       65
+Removing temp directory.
+
+6.22.3. Extracting gate netlist of module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100' to `<abc-temp-dir>/input.blif'..
+Extracted 76 gates and 95 wires to a netlist network with 18 inputs and 15 outputs.
+
+6.22.3.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.3.2. Re-integrating ABC results.
+ABC RESULTS:             ORNOT cells:        2
+ABC RESULTS:              NAND cells:        2
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:              XNOR cells:        1
+ABC RESULTS:               XOR cells:        2
+ABC RESULTS:               NOT cells:        4
+ABC RESULTS:            ANDNOT cells:       22
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:                OR cells:       13
+ABC RESULTS:               MUX cells:        9
+ABC RESULTS:        internal signals:       62
+ABC RESULTS:           input signals:       18
+ABC RESULTS:          output signals:       15
+Removing temp directory.
+
+6.22.4. Extracting gate netlist of module `\soc_top' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+6.23. Executing OPT pass (performing simple optimizations).
+
+6.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000.
+Optimizing module $paramod\timer\WIDTH=s32'00000000000000000000000000100000.
+Optimizing module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100.
+<suppressed ~1 debug messages>
+Optimizing module soc_top.
+
+6.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\gpio\WIDTH=s32'00000000000000000000000000001000'.
+Finding identical cells in module `$paramod\timer\WIDTH=s32'00000000000000000000000000100000'.
+Finding identical cells in module `$paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100'.
+Finding identical cells in module `\soc_top'.
+Removed a total of 0 cells.
+
+6.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000..
+Finding unused cells or wires in module $paramod\timer\WIDTH=s32'00000000000000000000000000100000..
+Finding unused cells or wires in module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module \soc_top..
+Removed 0 unused cells and 224 unused wires.
+<suppressed ~3 debug messages>
+
+6.23.5. Finished fast OPT passes.
+
+6.24. Executing HIERARCHY pass (managing design hierarchy).
+
+6.24.1. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+
+6.24.2. Analyzing design hierarchy..
+Top module:  \soc_top
+Used module:     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000
+Used module:     $paramod\timer\WIDTH=s32'00000000000000000000000000100000
+Used module:     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100
+Removed 0 unused modules.
+
+6.25. Printing statistics.
+
+=== $paramod\gpio\WIDTH=s32'00000000000000000000000000001000 ===
+
+   Number of wires:                  8
+   Number of wire bits:             36
+   Number of public wires:           8
+   Number of public wire bits:      36
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     $_AND_                          8
+     $_DFFE_PN0P_                    8
+
+=== $paramod\timer\WIDTH=s32'00000000000000000000000000100000 ===
+
+   Number of wires:                 98
+   Number of wire bits:            191
+   Number of public wires:           7
+   Number of public wire bits:      69
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                186
+     $_ANDNOT_                      36
+     $_AND_                         33
+     $_DFFE_PN0P_                   32
+     $_NAND_                        21
+     $_NOR_                          1
+     $_NOT_                          1
+     $_ORNOT_                       10
+     $_OR_                          21
+     $_XNOR_                         2
+     $_XOR_                         29
+
+=== $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 ===
+
+   Number of wires:                 67
+   Number of wire bits:             90
+   Number of public wires:          10
+   Number of public wire bits:      30
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 79
+     $_ANDNOT_                      22
+     $_AND_                          3
+     $_DFFE_PN0P_                   12
+     $_DFFE_PN1P_                    1
+     $_DFF_PN0_                      5
+     $_DFF_PN1_                      1
+     $_MUX_                          9
+     $_NAND_                         2
+     $_NOR_                          2
+     $_NOT_                          4
+     $_ORNOT_                        2
+     $_OR_                          13
+     $_XNOR_                         1
+     $_XOR_                          2
+
+=== soc_top ===
+
+   Number of wires:                 17
+   Number of wire bits:            114
+   Number of public wires:          17
+   Number of public wire bits:     114
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000      1
+     $paramod\timer\WIDTH=s32'00000000000000000000000000100000      1
+     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100      1
+
+=== design hierarchy ===
+
+   soc_top                           1
+     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000      1
+     $paramod\timer\WIDTH=s32'00000000000000000000000000100000      1
+     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100      1
+
+   Number of wires:                190
+   Number of wire bits:            431
+   Number of public wires:          42
+   Number of public wire bits:     249
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                281
+     $_ANDNOT_                      58
+     $_AND_                         44
+     $_DFFE_PN0P_                   52
+     $_DFFE_PN1P_                    1
+     $_DFF_PN0_                      5
+     $_DFF_PN1_                      1
+     $_MUX_                          9
+     $_NAND_                        23
+     $_NOR_                          3
+     $_NOT_                          5
+     $_ORNOT_                       12
+     $_OR_                          34
+     $_XNOR_                         3
+     $_XOR_                         31
+
+6.26. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\gpio\WIDTH=s32'00000000000000000000000000001000...
+Checking module $paramod\timer\WIDTH=s32'00000000000000000000000000100000...
+Checking module $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100...
+Checking module soc_top...
+Found and reported 0 problems.
+
+7. Printing statistics.
+
+=== $paramod\gpio\WIDTH=s32'00000000000000000000000000001000 ===
+
+   Number of wires:                  8
+   Number of wire bits:             36
+   Number of public wires:           8
+   Number of public wire bits:      36
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     $_AND_                          8
+     $_DFFE_PN0P_                    8
+
+=== $paramod\timer\WIDTH=s32'00000000000000000000000000100000 ===
+
+   Number of wires:                 98
+   Number of wire bits:            191
+   Number of public wires:           7
+   Number of public wire bits:      69
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                186
+     $_ANDNOT_                      36
+     $_AND_                         33
+     $_DFFE_PN0P_                   32
+     $_NAND_                        21
+     $_NOR_                          1
+     $_NOT_                          1
+     $_ORNOT_                       10
+     $_OR_                          21
+     $_XNOR_                         2
+     $_XOR_                         29
+
+=== $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100 ===
+
+   Number of wires:                 67
+   Number of wire bits:             90
+   Number of public wires:          10
+   Number of public wire bits:      30
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 79
+     $_ANDNOT_                      22
+     $_AND_                          3
+     $_DFFE_PN0P_                   12
+     $_DFFE_PN1P_                    1
+     $_DFF_PN0_                      5
+     $_DFF_PN1_                      1
+     $_MUX_                          9
+     $_NAND_                         2
+     $_NOR_                          2
+     $_NOT_                          4
+     $_ORNOT_                        2
+     $_OR_                          13
+     $_XNOR_                         1
+     $_XOR_                          2
+
+=== soc_top ===
+
+   Number of wires:                 17
+   Number of wire bits:            114
+   Number of public wires:          17
+   Number of public wire bits:     114
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000      1
+     $paramod\timer\WIDTH=s32'00000000000000000000000000100000      1
+     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100      1
+
+=== design hierarchy ===
+
+   soc_top                           1
+     $paramod\gpio\WIDTH=s32'00000000000000000000000000001000      1
+     $paramod\timer\WIDTH=s32'00000000000000000000000000100000      1
+     $paramod\uart_tx\CLKS_PER_BIT=s32'00000000000000000000000000000100      1
+
+   Number of wires:                190
+   Number of wire bits:            431
+   Number of public wires:          42
+   Number of public wire bits:     249
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                281
+     $_ANDNOT_                      58
+     $_AND_                         44
+     $_DFFE_PN0P_                   52
+     $_DFFE_PN1P_                    1
+     $_DFF_PN0_                      5
+     $_DFF_PN1_                      1
+     $_MUX_                          9
+     $_NAND_                        23
+     $_NOR_                          3
+     $_NOT_                          5
+     $_ORNOT_                       12
+     $_OR_                          34
+     $_XNOR_                         3
+     $_XOR_                         31
+
+End of script. Logfile hash: 60f5238138, CPU: user 0.19s system 0.00s, MEM: 16.68 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 39% 1x abc (0 sec), 15% 26x opt_expr (0 sec), ...
