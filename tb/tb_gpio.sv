@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module tb_gpio;
 
     logic clk = 0;
