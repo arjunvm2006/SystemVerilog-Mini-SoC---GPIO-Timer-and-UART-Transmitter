@@ -10,21 +10,6 @@ I wanted a hands-on project that connects the digital electronics concepts I hav
 
 Instead of only writing individual Verilog examples, I built and verified reusable hardware blocks, integrated them into a mini-SoC, and generated a synthesis report. This resembles the early RTL-to-synthesis stages of real FPGA and ASIC development.
 
-## What the design contains
-
-```text
-                 +----------------------+
-                 |       soc_top        |
-                 |                      |
-GPIO controls -->| GPIO peripheral      |--> gpio_out
-GPIO inputs ---->|                      |
-                 |                      |
-Timer controls ->| Timer peripheral     |--> timer_count
-                 |                      |
-UART controls -->| UART TX peripheral   |--> uart_tx
-                 +----------------------+
-```
-
 ## GPIO peripheral
 
 The GPIO peripheral provides:
